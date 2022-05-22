@@ -1,4 +1,4 @@
 jenkins/jenkins-home
-test-repo/R10-OPW-Guided-Selling-Journey/*
-!test-repo/R10-OPW-Guided-Selling-Journey/Jenkinsfile
-!test-repo/R10-OPW-Guided-Selling-Journey/sonar-project.properties
+test-repo/testRepo/*
+!test-repo/testRepo/Jenkinsfile
+!test-repo/testRepo/sonar-project.properties
