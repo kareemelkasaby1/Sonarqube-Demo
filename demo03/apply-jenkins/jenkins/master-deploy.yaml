@@ -1,0 +1,24 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   creationTimestamp: null
+#   labels:
+#     app: jenkins
+#   name: jenkins
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: jenkins
+#   strategy: {}
+#   template:
+#     metadata:
+#       creationTimestamp: null
+#       labels:
+#         app: jenkins
+#     spec:
+#       containers:
+#       - image: jenkins/jenkins:lts-jdk11
+#         name: jenkins
+#         resources: {}
+# status: {}

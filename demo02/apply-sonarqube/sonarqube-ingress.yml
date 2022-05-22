@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarqube
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  namespace: sonarqube
+spec:
+  rules:
+  - host: sonar.local.com
+    http:
+       paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: sonarqube
+              port: 
+                number: 9000

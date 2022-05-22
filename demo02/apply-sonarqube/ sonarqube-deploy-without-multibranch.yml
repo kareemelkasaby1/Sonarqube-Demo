@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube
+  namespace: sonarqube
+spec:
+  selector:
+    matchLabels:
+      name: sonarqube
+  replicas: 1
+  template:
+    metadata:
+      name: sonarqube
+      labels:
+        name: sonarqube
+    spec:
+      initContainers:
+        - name: sysctlvmmax
+          image: busybox
+          securityContext:
+            privileged: true
+          command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        - name: sysctlfsmap
+          image: busybox
+          securityContext:
+            privileged: true
+          command: ['sh', '-c', 'sysctl -w fs.file-max=65536']
+      containers:
+        - image: sonarqube:8.9.1-community
+          args:
+            - -Dsonar.web.context=/sonar
+          name: sonarqube
+          env:
+            - name: sonar.jdbc.username
+              value: postgressql_user
+            - name: sonar.jdbc.password
+              value: postgressql_pass
+            - name: SONARQUBE_JDBC_URL
+              value: jdbc:postgresql://sonar-postgres:5432/sonar
+          ports:
+            - containerPort: 9000
+              name: sonarqube
+          volumeMounts:
+            - name: sonarqube-extensions
+              mountPath: /opt/sonarqube/extensions
+            - name: sonarqube-logs
+              mountPath: /opt/sonarqube/logs
+            - name: sonarqube-conf
+              mountPath: /opt/sonarqube/conf
+            - name: sonarqube-data
+              mountPath: /opt/sonarqube/data
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+            requests:
+              cpu: 250m
+              memory: .5Gi
+      volumes:
+        - name: sonarqube-extensions
+          persistentVolumeClaim:
+            claimName: claim-sonarqube-extensions
+        - name: sonarqube-logs
+          persistentVolumeClaim:
+            claimName: claim-sonarqube-logs
+        - name: sonarqube-conf
+          persistentVolumeClaim:
+            claimName: claim-sonarqube-conf
+        - name: sonarqube-data
+          persistentVolumeClaim:
+            claimName: claim-sonarqube-data
