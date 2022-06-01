@@ -1,4 +1,4 @@
-# Demo 1 - Apply Postgress on K8S
+# Demo 01 - Apply Postgress on K8S
 
 There are multible resources needed to run `Postgress` on K8S Cluster.
 
@@ -37,3 +37,4 @@ kubectl get all -n sonarqube
 
 kubectl logs -f  -n sonarqube -l name=sonar-postgres
 ```
+`Go to` [Demo02](../../demo02/apply-sonarqube/README.md)

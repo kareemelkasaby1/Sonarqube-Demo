@@ -6,11 +6,9 @@ metadata:
   name: sonarqube
   namespace: sonarqube
 spec:
-  type: NodePort
   ports:
     - port: 9000
       targetPort: 9000
-      nodePort: 30008
       name: sonarport
   selector:
     name: sonarqube

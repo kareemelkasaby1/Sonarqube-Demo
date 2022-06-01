@@ -1,4 +1,4 @@
-# Demo 1 - Apply Jenkins on K8S
+# Demo 03 - Apply Jenkins on K8S
 
 There are multible resources needed to run `Jenkins` on K8S Cluster.
 
@@ -28,3 +28,5 @@ kubectl logs -f  -n jenkins -l app=jenkins
 > 5. Go to jenkins GUI to do `Sonarqube configuration`:
 
 Remember that the Sonarqube url must be `sonarqube.sonarqube:9000/sonar`.
+
+`Go to` [Demo04](../../demo04/multi-branch-plugin/README.md)

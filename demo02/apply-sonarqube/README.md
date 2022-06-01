@@ -1,4 +1,4 @@
-# Demo 1 - Apply Sonarqube on K8S
+# Demo 02 - Apply Sonarqube on K8S
 
 There are multible resources needed to run `Sonarqube` on K8S Cluster.
 
@@ -48,9 +48,9 @@ kubectl apply -f sonarqube-data-pvc.yml
 ```
 kubectl apply -f sonarqube-svc.yml
 ```
-> 10. Create [Sonarqube Deployment](sonarqube-deploy-without-multibranch):
+> 10. Create [Sonarqube Deployment]( sonarqube-deploy-without-multibranch.yml):
 ```
-kubectl apply -f sonarqube-deploy-without-multibranch.yml
+kubectl apply -f  sonarqube-deploy-without-multibranch.yml
 ```
 > 11. Add another host of sonar.local.com in `/etc/hosts`:
 ```
@@ -64,7 +64,7 @@ kubectl apply -f sonarqube-ingress.yml
 ```
 > 12. Install [ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac) to Docker Desktop:
 ```
-helm upgrade --install ingress-nginx ingress-nginx \                              
+helm upgrade --install ingress-nginx ingress-nginx \
   --repo https://kubernetes.github.io/ingress-nginx \
   --namespace ingress-nginx --create-namespace
 ```
@@ -78,3 +78,5 @@ kubectl get all -n sonarqube
 
 kubectl logs -f  -n sonarqube -l name=sonarqube
 ```
+
+`Go to` [Demo03](../../demo03/apply-jenkins/README.md)
