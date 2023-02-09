@@ -58,15 +58,9 @@ spec:
           name: docker-sock
         - name: data-disk
           mountPath: /var/jenkins_home
-
-
-
-
         - name: docker
           subPath: "docker"
           mountPath: "/usr/local/bin/docker"
-
-
         - name: kubectl
           subPath: "kubectl"
           mountPath: "/usr/local/bin/kubectl"
@@ -82,11 +76,7 @@ spec:
       - name: data-disk
         persistentVolumeClaim:
           claimName: claim-jenkins
-  
       - name: docker
         emptyDir: {}
-
-
-
       - name: kubectl
         emptyDir: {}

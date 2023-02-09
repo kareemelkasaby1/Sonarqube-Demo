@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  namespace: jenkins
+spec:
+  rules:
+  - host: jenkins.local.com
+    http:
+       paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: jenkins-nodeport
+              port: 
+                number: 8080
