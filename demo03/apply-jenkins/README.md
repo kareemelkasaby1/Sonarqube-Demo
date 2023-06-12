@@ -35,7 +35,19 @@ kubectl get all -n jenkins
 
 kubectl logs -f  -n jenkins -l app=jenkins
 ```
-> 6. Go to jenkins GUI to do `Sonarqube configuration`:
+> 6. Get kubeconfig of the service account:
+```
+kubectl config set-cluster cfc --server=https://kubernetes.default --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+kubectl config set-context cfc --cluster=cfc
+
+kubectl config set-credentials user --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+kubectl config set-context cfc --user=user
+
+kubectl config use-context cfc
+```
+> 7. Go to jenkins GUI to do `Sonarqube configuration`:
 
 Remember that the Sonarqube url must be `sonarqube.sonarqube:9000/sonar`.
 
