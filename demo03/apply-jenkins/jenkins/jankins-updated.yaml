@@ -7,7 +7,6 @@ metadata:
   namespace: jenkins
 spec:
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: jenkins
@@ -19,23 +18,26 @@ spec:
       securityContext:
         fsGroup: 1000 
         runAsUser: 0
-      initContainers:
-      - name: install-docker
-        image: docker:stable
-        command: ["cp", "/usr/local/bin/docker", "/data/docker"]    
-        volumeMounts:
-        - name: docker
-          mountPath: "/data"
-      - name: install-kubectl
-        image: eslamkarim/jenkins-ansible-kubectl
-        command: ["cp", "/usr/local/bin/kubectl", "/data/kubectl"]    
-        volumeMounts:
-        - name: kubectl
-          mountPath: "/data" 
+      # initContainers:
+      # - name: install-docker
+      #   image: docker:stable
+      #   command: ["cp", "/usr/local/bin/docker", "/data/docker"]    
+      #   volumeMounts:
+      #   - name: docker
+      #     mountPath: "/data"
+      # - name: install-kubectl
+      #   image: eslamkarim/jenkins-ansible-kubectl
+      #   command: ["cp", "/usr/local/bin/kubectl", "/data/kubectl"]    
+      #   volumeMounts:
+      #   - name: kubectl
+      #     mountPath: "/data" 
       containers:
       - image: jenkins/jenkins:lts-jdk11
-        imagePullPolicy: IfNotPresent
-        name: jenkins            
+        imagePullPolicy: Always
+        name: jenkins
+        env:
+          - name: JAVA_ARGS
+            value: "-Xmx4g -Xms2g"            
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -51,23 +53,17 @@ spec:
           successThreshold: 2
           timeoutSeconds: 5
         resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/run
           name: docker-sock
         - name: data-disk
           mountPath: /var/jenkins_home
-        - name: docker
-          subPath: "docker"
-          mountPath: "/usr/local/bin/docker"
-        - name: kubectl
-          subPath: "kubectl"
-          mountPath: "/usr/local/bin/kubectl"
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      terminationGracePeriodSeconds: 30
+        # - name: docker
+        #   subPath: "docker"
+        #   mountPath: "/usr/local/bin/docker"
+        # - name: kubectl
+        #   subPath: "kubectl"
+        #   mountPath: "/usr/local/bin/kubectl"
       volumes:
       - hostPath:
           path: /var/run
@@ -76,7 +72,7 @@ spec:
       - name: data-disk
         persistentVolumeClaim:
           claimName: claim-jenkins
-      - name: docker
-        emptyDir: {}
-      - name: kubectl
-        emptyDir: {}
+      # - name: docker
+      #   emptyDir: {}
+      # - name: kubectl
+      #   emptyDir: {}
