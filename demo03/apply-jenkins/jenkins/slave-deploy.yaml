@@ -22,10 +22,11 @@ spec:
             runAsUser: 0
       containers:
       - name: jenkins-ubuntu-slave
-        image: kareemelkasaby/jenkins-slave-java-11
+        image: kareemelkasaby/jenkins-slave-java-17
         imagePullPolicy: Always
         ports:
         - containerPort: 22
+        resources: {}
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-sock

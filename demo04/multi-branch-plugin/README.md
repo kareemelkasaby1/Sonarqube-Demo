@@ -8,7 +8,7 @@ We are using [Docker Desktop](https://www.docker.com/products/docker-desktop/) a
 ## 1.1 Run Sonarqube with the third party plugin configuration:
 > 1. Download the plugin Jar:
 ```
-wget https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/1.8.0/sonarqube-community-branch-plugin-1.8.0.jar -O ../../demo02/apply-sonarqube/sonarqube-extensions/plugins/sonarqube-community-branch-plugin-1.8.0.jar
+wget https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/1.19.0/sonarqube-community-branch-plugin-1.19.0.jar -O ../../demo02/apply-sonarqube/sonarqube-extensions/plugins/sonarqube-community-branch-plugin-1.19.0.jar
 ```
 
 > 2. Apply [Sonarqube Deployment](sonarqube-deploy-with-multibranch-plugin.yml) again with the changes:

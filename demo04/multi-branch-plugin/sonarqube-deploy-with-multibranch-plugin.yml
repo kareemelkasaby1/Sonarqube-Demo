@@ -26,21 +26,21 @@ spec:
             privileged: true
           command: ['sh', '-c', 'sysctl -w fs.file-max=65536']
       containers:
-        - image: sonarqube:8.9.1-community
+        - image: sonarqube:10.5.1-community
           args:
             - -Dsonar.web.context=/sonar
           name: sonarqube
           env:
-            - name: sonar.jdbc.username
+            - name: SONAR_JDBC_USERNAME
               value: postgressql_user
-            - name: sonar.jdbc.password
+            - name: SONAR_JDBC_PASSWORD
               value: postgressql_pass
-            - name: SONARQUBE_JDBC_URL
+            - name: SONAR_JDBC_URL
               value: jdbc:postgresql://sonar-postgres:5432/sonar
-            - name: sonar.web.javaAdditionalOpts
-              value: -javaagent:./extensions/plugins/sonarqube-community-branch-plugin-1.8.0.jar=web
-            - name: sonar.ce.javaAdditionalOpts
-              value: -javaagent:./extensions/plugins/sonarqube-community-branch-plugin-1.8.0.jar=ce
+            - name: SONAR_WEB_JAVAADDITIONALOPTS
+              value: -javaagent:/opt/sonarqube/extensions/plugins/sonarqube-community-branch-plugin-1.18.0.jar=web
+            - name: SONAR_CE_JAVAADDITIONALOPTS
+              value: -javaagent:/opt/sonarqube/extensions/plugins/sonarqube-community-branch-plugin-1.18.0.jar=ce
           ports:
             - containerPort: 9000
               name: sonarqube
